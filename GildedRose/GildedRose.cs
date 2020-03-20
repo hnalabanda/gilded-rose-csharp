@@ -52,10 +52,7 @@ namespace GildedRose
                     }
                 }
 
-                if (item.Name != "Sulfuras, Hand of Ragnaros")
-                {
-                    item.SellIn -= 1;
-                }
+                item.SellIn = GetUpdatedSellInValue(item);
 
                 if (item.SellIn < 0)
                 {
@@ -85,6 +82,16 @@ namespace GildedRose
                     }
                 }
             }
+        }
+
+        private int GetUpdatedSellInValue(Item item)
+        {
+            if (item.Name == "Sulfuras, Hand of Ragnaros")
+            {
+                return item.SellIn;
+            }
+
+            return item.SellIn - 1;
         }
     }
 }
