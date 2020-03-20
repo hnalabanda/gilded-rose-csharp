@@ -37,7 +37,6 @@ namespace GildedRose
             return item.Name switch
             {
                 "Aged Brie" => 1,
-                "Sulfuras, Hand of Ragnaros" => 0,
                 "Backstage passes to a TAFKAL80ETC concert" => GetBackStagePassQualityChange(item),
                 _ => -1
             };
@@ -45,6 +44,12 @@ namespace GildedRose
 
         private int GetUpdatedItemQuality(Item item)
         {
+            if (item.Name == "Sulfuras, Hand of Ragnaros")
+            {
+                // Quality of Sulfuras, Hand of Ragnaros should never change.
+                return item.Quality;
+            }
+            
             var changeInQuality = GetChangeInQuality(item);
             return Math.Max(0, Math.Min(50, item.Quality + changeInQuality));
         }
