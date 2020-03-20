@@ -27,5 +27,27 @@ namespace GildedRose.Tests
 
             item.SellIn.Should().Be(5);
         }
+
+        [Test]
+        public void RegularItemsDecreaseInQualityByOneEachDay()
+        {
+            var item = new Item { Name = "Test Item", Quality = 10, SellIn = 5};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(9);
+        }
+        
+        [Test]
+        public void RegularItemsDoNotDecreaseTheirValueBelowZero()
+        {
+            var item = new Item { Name = "Test Item", Quality = 0, SellIn = 5};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(0);
+        }
     }
 }
