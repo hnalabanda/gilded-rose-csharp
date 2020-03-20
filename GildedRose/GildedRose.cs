@@ -16,52 +16,39 @@ namespace GildedRose
         {
             foreach (var item in _items)
             {
-                UpdateItemQuality(item);
+                item.Quality = GetUpdatedItemQuality(item);
                 item.SellIn = GetUpdatedSellInValue(item);
                 UpdateOutOfDateItems(item);
             }
         }
 
-        private void UpdateItemQuality(Item item)
+        private int GetBackStagePassQualityChange(Item item)
         {
-            if (item.Name == "Aged Brie")
+            if (item.SellIn > 10)
             {
-                item.Quality = Math.Min(50, item.Quality + 1);
+                return 1;
             }
-            else if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-            {
-                if (item.Quality > 0)
-                {
-                    if (item.Name != "Sulfuras, Hand of Ragnaros")
-                    {
-                        item.Quality -= 1;
-                    }
-                }
-            }
-            else
-            {
-                if (item.Quality < 50)
-                {
-                    item.Quality += 1;
 
-                    if (item.SellIn < 11)
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality += 1;
-                        }
-                    }
-
-                    if (item.SellIn < 6)
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality += 1;
-                        }
-                    }
-                }
-            }
+            return item.SellIn > 5 ? 2 : 3;
         }
+
+        private int GetChangeInQuality(Item item)
+        {
+            return item.Name switch
+            {
+                "Aged Brie" => 1,
+                "Sulfuras, Hand of Ragnaros" => 0,
+                "Backstage passes to a TAFKAL80ETC concert" => GetBackStagePassQualityChange(item),
+                _ => -1
+            };
+        }
+
+        private int GetUpdatedItemQuality(Item item)
+        {
+            var changeInQuality = GetChangeInQuality(item);
+            return Math.Max(0, Math.Min(50, item.Quality + changeInQuality));
+        }
+
 
         private int GetUpdatedSellInValue(Item item)
         {
