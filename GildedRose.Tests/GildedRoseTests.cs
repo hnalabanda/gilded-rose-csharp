@@ -49,5 +49,27 @@ namespace GildedRose.Tests
 
             item.Quality.Should().Be(0);
         }
+        
+        [Test]
+        public void AgedBrieIncreasesInQualityByOneEachDay()
+        {
+            var item = new Item { Name = "Aged Brie", Quality = 10, SellIn = 5};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(11);
+        }
+        
+        [Test]
+        public void AgedBrieCannotIncreaseInValueAbove50()
+        {
+            var item = new Item { Name = "Aged Brie", Quality = 50, SellIn = 5};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(50);
+        }
     }
 }
