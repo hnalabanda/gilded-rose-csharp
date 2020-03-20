@@ -115,5 +115,38 @@ namespace GildedRose.Tests
 
             item.Quality.Should().Be(80);
         }
+
+        [Test]
+        public void RegularItemsDecreaseInQualityFasterIfOutOfDate()
+        {
+            var item = new Item { Name = "Test Item", Quality = 10, SellIn = 0};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(8);
+        }
+        
+        [Test]
+        public void AgedBrieIncreasesInQualityFasterIfOutOfDate()
+        {
+            var item = new Item { Name = "Aged Brie", Quality = 10, SellIn = 0};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(12);
+        }
+        
+        [Test]
+        public void BackstagePassesHaveZeroValueIfOutOfDate()
+        {
+            var item = new Item { Name = "Aged Brie", Quality = 10, SellIn = 0};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(12);
+        }
     }
 }
