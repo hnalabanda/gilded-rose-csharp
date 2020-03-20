@@ -104,5 +104,16 @@ namespace GildedRose.Tests
 
             item.Quality.Should().Be(13);
         }
+        
+        [Test]
+        public void TheQualityOfSulfurasNeverChanges()
+        {
+            var item = new Item { Name = "Sulfuras, Hand of Ragnaros", Quality = 10, SellIn = 5};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(10);
+        }
     }
 }
