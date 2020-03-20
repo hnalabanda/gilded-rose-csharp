@@ -4,15 +4,16 @@ namespace GildedRose
 {
     public class GildedRose
     {
-        IList<Item> Items;
-        public GildedRose(IList<Item> Items)
+        private readonly IList<Item> _items;
+        
+        public GildedRose(IList<Item> items)
         {
-            this.Items = Items;
+            _items = items;
         }
 
         public void UpdateQuality()
         {
-            foreach (var item in Items)
+            foreach (var item in _items)
             {
                 if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
