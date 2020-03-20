@@ -148,5 +148,27 @@ namespace GildedRose.Tests
 
             item.Quality.Should().Be(0);
         }
+
+        [Test]
+        public void ConjuredItemsDegradeTwiceAsFast()
+        {
+            var item = new Item { Name = "Conjured Mana Cake", Quality = 10, SellIn = 5};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(8);
+        }
+        
+        [Test]
+        public void OutOfDateConjuredItemsDegradeFourAsFast()
+        {
+            var item = new Item { Name = "Conjured Mana Cake", Quality = 10, SellIn = 0};
+            var gildedRose = new GildedRose(new List<Item> { item });
+            
+            gildedRose.UpdateQuality();
+
+            item.Quality.Should().Be(6);
+        }
     }
 }

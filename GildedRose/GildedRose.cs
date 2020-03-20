@@ -41,6 +41,11 @@ namespace GildedRose
 
             return item.SellIn >= 5 ? 2 : 3;
         }
+
+        private int GetConjuredItemQualityChange(Item item)
+        {
+            return 2 * GetDefaultQualityChange(item);
+        }
         
         private int GetDefaultQualityChange(Item item)
         {
@@ -53,6 +58,7 @@ namespace GildedRose
             {
                 "Aged Brie" => GetAgedBrieQualityChange(item),
                 "Backstage passes to a TAFKAL80ETC concert" => GetBackStagePassQualityChange(item),
+                "Conjured Mana Cake" => GetConjuredItemQualityChange(item),
                 _ => GetDefaultQualityChange(item)
             };
         }
