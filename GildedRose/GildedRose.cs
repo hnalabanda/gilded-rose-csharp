@@ -16,20 +16,20 @@ namespace GildedRose
         {
             foreach (var item in _items)
             {
-                item.Quality = GetUpdatedItemQuality(item);
                 item.SellIn = GetUpdatedSellInValue(item);
+                item.Quality = GetUpdatedItemQuality(item);
                 UpdateOutOfDateItems(item);
             }
         }
 
         private int GetBackStagePassQualityChange(Item item)
         {
-            if (item.SellIn > 10)
+            if (item.SellIn >= 10)
             {
                 return 1;
             }
 
-            return item.SellIn > 5 ? 2 : 3;
+            return item.SellIn >= 5 ? 2 : 3;
         }
 
         private int GetChangeInQuality(Item item)

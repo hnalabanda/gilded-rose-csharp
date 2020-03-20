@@ -141,12 +141,12 @@ namespace GildedRose.Tests
         [Test]
         public void BackstagePassesHaveZeroValueIfOutOfDate()
         {
-            var item = new Item { Name = "Aged Brie", Quality = 10, SellIn = 0};
+            var item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", Quality = 10, SellIn = 0};
             var gildedRose = new GildedRose(new List<Item> { item });
             
             gildedRose.UpdateQuality();
 
-            item.Quality.Should().Be(12);
+            item.Quality.Should().Be(0);
         }
     }
 }
