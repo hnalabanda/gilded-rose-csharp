@@ -66,6 +66,8 @@ namespace GildedRose
             }
             
             var changeInQuality = GetChangeInQuality(item);
+            
+            // Other products cannot have negative quality or one above 50.
             return Math.Max(0, Math.Min(50, item.Quality + changeInQuality));
         }
 
